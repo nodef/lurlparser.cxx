@@ -1,0 +1,25 @@
+{
+  "name": "lurlparser.cxx",
+  "version": "1.1.0",
+  "description": "Lightweight URL & URI parser (RFC 1738, RFC 3986); Sergey Kosarevsky (2015).",
+  "keywords": [
+    "c",
+    "library",
+    "url",
+    "uri",
+    "parser",
+    "rfc1738",
+    "rfc3986",
+    "lightweight"
+  ],
+  "homepage": "https://github.com/nodef/lurlparser.cxx#readme",
+  "bugs": {
+    "url": "https://github.com/nodef/lurlparser.cxx/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodef/lurlparser.cxx.git"
+  },
+  "license": "MIT",
+  "main": "lurlparser.h"
+}
