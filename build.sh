@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-URL="https://excellmedia.dl.sourceforge.net/project/asio/asio/1.36.0%20%28Stable%29/boost_asio_1_36_0.zip?viasf=1"
+# Fetch the latest version of the library
+fetch() {
+if [ -d "lurlparser" ]; then return; fi
+URL="https://github.com/corporateshark/LUrlParser/archive/refs/heads/master.zip"
 ZIP="${URL##*/}"
-ZIP="${ZIP%%\?*}"
-DIR="${ZIP%.zip}"
+DIR="LUrlParser-master"
 mkdir -p .build
 cd .build
 
@@ -22,10 +24,28 @@ if [ ! -d "$DIR" ]; then
   mv "$ZIP.bak" "$ZIP"
   echo ""
 fi
+cd ..
 
 # Copy the libs to the package directory
-echo "Copying libs to boost/ ..."
-rm -rf ../boost
-mkdir -p ../boost
-cp -rf "$DIR/boost"/* ../boost/
+echo "Copying libs to lurlparser/ ..."
+rm -rf lurlparser
+mkdir -p lurlparser
+cp -f ".build/$DIR/LUrlParser.h"   lurlparser/
+cp -f ".build/$DIR/LUrlParser.cpp" lurlparser/
 echo ""
+}
+
+
+# Test the project
+test() {
+echo "Running 01-parse-url.cxx ..."
+clang++ -std=c++17 -o 01.exe -I. examples/01-parse-url.cxx     && ./01.exe && echo -e "\n"
+echo "Running 02-validate-port.cxx ..."
+clang++ -std=c++17 -o 02.exe -I. examples/02-validate-port.cxx && ./02.exe && echo -e "\n"
+}
+
+
+# Main script
+if [[ "$1" == "test" ]]; then test
+elif [[ "$1" == "fetch" ]]; then fetch
+else echo "Usage: $0 {fetch|test}"; fi
